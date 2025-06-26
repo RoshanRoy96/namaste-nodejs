@@ -29,6 +29,7 @@ printA();
 console.log("Last line of the file");
 
 /*
+OUTPUT
  * a = 100
  * Last line of the file
  * process.nextTick

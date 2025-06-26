@@ -22,7 +22,8 @@ printA();
 
 console.log("Last line of file");
 
-/*Output
+/*
+OUTPUT
 * a= 100
 * Last line of file
 * Timer expired
