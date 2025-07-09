@@ -23,4 +23,15 @@ LLD
 DB DESIGN
 * User:- firstname, lastname, email, password, age, gender
 * connection request:- from userID, to userID, status = pending/rejected/approved/ignored
+
+API DESIGN
+* Signup - POST
+* Login - POST
+* Profile - GET
+* create profile - POST
+* update profile - PATCH
+* send connection request - POST
+* review request - POST
+* to see requests - GET
+* to see all connections - GET
 */
