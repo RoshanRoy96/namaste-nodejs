@@ -18,26 +18,27 @@ const app = express();
 //   res.send("Namaste");
 // });
 
-app.use("/user", (req, res) => {
-  res.send("order matters");
-});
+// app.use("/user", (req, res) => {
+//   res.send("order matters");
+// });
 
-app.get("/user", (req, res) => {
+app.get("/user/:userId", (req, res) => {
+  console.log(req.params);
   res.send({ firstName: "Roshan", lastName: "Roy" });
 });
 
-app.use("/test", (req, res) => {
-  res.send("Hello from the server");
-});
+// app.use("/test", (req, res) => {
+//   res.send("Hello from the server");
+// });
 
-app.post("/user", (req, res) => {
-  console.log("Save data to database");
-  res.send("Data seccessfully saved to database");
-});
+// app.post("/user", (req, res) => {
+//   console.log("Save data to database");
+//   res.send("Data seccessfully saved to database");
+// });
 
-app.delete("/user", (req, res) => {
-  res.send("Deleted successfully");
-});
+// app.delete("/user", (req, res) => {
+//   res.send("Deleted successfully");
+// });
 
 app.listen(3000, () => {
   console.log("Server listening on port 3000");
