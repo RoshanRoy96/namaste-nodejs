@@ -2,3 +2,4 @@
 - install mongoose library
 - connect application to the database "connection-url"/devTinder
 - call connect DB function and connect to application before listening to port 7777
+- create a userSchema and user Model
