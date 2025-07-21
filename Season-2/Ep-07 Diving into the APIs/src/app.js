@@ -31,11 +31,12 @@ app.post("/signup", async (req, res) => {
 //   }
 // });
 
+// get user by email
 app.get("/user", async (req, res) => {
   const userEmail = req.body.emailId;
   try {
     const user = await User.findOne({ emailId: userEmail });
-    if(!user) {
+    if (!user) {
       res.status(404).send("User not found");
     } else {
       res.send(user);
@@ -45,10 +46,35 @@ app.get("/user", async (req, res) => {
   }
 });
 
+// feed API- get all users
 app.get("/feed", async (req, res) => {
   try {
     const users = await User.find({});
     res.send(users);
+  } catch (err) {
+    res.status(400).send("Something went wrong");
+  }
+});
+
+// delete a user from database
+app.delete("/user", async (req, res) => {
+  const userId = req.body.userId;
+  try {
+    const user = await User.findByIdAndDelete({ _id: userId });
+    res.send("User deleted successfully");
+  } catch (err) {
+    res.status(400).send("Something went wrong");
+  }
+});
+
+// update data of the user
+app.patch("/user", async (req, res) => {
+  const userId = req.body.userId;
+  const data = req.body;
+  try {
+    const user = await User.findByIdAndUpdate({ _id: userId }, data, { returnDocument: "after" });
+    console.log(user);
+    res.send("User updated successfully");
   } catch (err) {
     res.status(400).send("Something went wrong");
   }

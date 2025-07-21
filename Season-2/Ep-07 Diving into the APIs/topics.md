@@ -1,3 +1,9 @@
 - difference between JS Objects and JSON
 - add express.json() middleware to the app
 - make signup API dynamic to receive data from the end user (end sue => postman/browser/anyone outside server)
+- API - get user by email
+- feed API - to get all users from database
+- create a delete user API
+- create an update user API
+- options in Model.findByIdAndUpdate
+- update the user with emailId
