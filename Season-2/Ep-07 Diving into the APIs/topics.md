@@ -1,0 +1,3 @@
+- difference between JS Objects and JSON
+- add express.json() middleware to the app
+- make signup API dynamic to receive data from the end user (end sue => postman/browser/anyone outside server)
