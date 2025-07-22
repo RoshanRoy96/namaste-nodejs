@@ -12,7 +12,7 @@ app.post("/signup", async (req, res) => {
     await user.save();
     res.send("User added successfully");
   } catch (err) {
-    res.status(400).send("Error in saving data", err.message);
+    res.status(400).send("Error in saving data" + err.message);
   }
 });
 
