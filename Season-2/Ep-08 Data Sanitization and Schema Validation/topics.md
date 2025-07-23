@@ -2,3 +2,5 @@
 - add required, unique, min, max, minLength, maxLength, lowercase, trim, add default value, create custom validate function for gender. 
 - improve DB Schema- put all appropriate validations on each field.
 - add timestamps to userSchema.
+- add API level validations on patch requests and signup post API
+- add API validation to each field
