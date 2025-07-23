@@ -43,7 +43,11 @@ const userSchema = new mongoose.Schema({
   skills: {
     type: [String],
   },
-});
+},
+{
+  timestamps: true
+}
+);
 
 const User = mongoose.model("User", userSchema);
 
