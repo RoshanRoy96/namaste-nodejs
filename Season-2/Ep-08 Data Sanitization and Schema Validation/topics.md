@@ -4,3 +4,5 @@
 - add timestamps to userSchema.
 - add API level validations on patch requests and signup post API
 - add API validation to each field
+- install validator
+- explore validator library and use validator functions for password, email and photoUrl
