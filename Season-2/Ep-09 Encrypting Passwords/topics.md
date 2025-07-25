@@ -1,0 +1,3 @@
+- validate data in signup API
+- install bcrypt package
+- create a passwordHash using bcrypt.hash and save the users with encrypted passwords
