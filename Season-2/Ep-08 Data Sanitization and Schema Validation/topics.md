@@ -6,3 +6,4 @@
 - add API validation to each field
 - install validator
 - explore validator library and use validator functions for password, email and photoUrl
+- Note:- never trust req.body
