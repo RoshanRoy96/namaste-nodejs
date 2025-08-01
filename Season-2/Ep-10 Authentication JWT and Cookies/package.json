@@ -1,0 +1,19 @@
+{
+  "name": "ep-10-authentication-jwt-and-cookies",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "express": "^5.1.0",
+    "mongoose": "^8.17.0",
+    "validator": "^13.15.15"
+  }
+}
