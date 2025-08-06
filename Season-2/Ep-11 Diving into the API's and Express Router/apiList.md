@@ -1,22 +1,22 @@
 # DevTinder API's
 
-authRouter
+## authRouter
 - POST /signup
 - POST /login
 - POST /logout
 
-profileRouter
+## profileRouter
 - PATCH /profile/edit
 - GET /profile/view
 - PATCH /profile/pasword
 
-connectionRequestRouter
+## connectionRequestRouter
 - POST /request/send/interested/:userId
 - POST /request/send/ignored/:userId
 - POST /request/review/accepted/:requestId
 - POST /request/review/rejected/:requestId
 
-userRouter
+## userRouter
 - GET /user/connections
 - GET /user/request/received
 - GET /user/feed => gets you the profiles of other users

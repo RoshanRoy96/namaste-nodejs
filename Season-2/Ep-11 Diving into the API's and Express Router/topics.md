@@ -1,0 +1,6 @@
+- create a list of all API's in DevTinder you can think of
+- group multiple routes under respective routers
+- explore express.Router()
+- create routes folder for managing auth, profile, request routers
+- create authRouter, profileRouter, requestRouter
+- import this routers in app.js
