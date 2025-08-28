@@ -52,27 +52,32 @@ app.delete("/deleteUser", async (req, res) => {
 });
 
 // update user API
-// app.patch("/updateUser", async (req, res) => {
-//   const userId = req.body.userId;
-//   const data = req.body;
-//   try {
-//     const user = await User.findByIdAndUpdate({ _id: userId }, data, {
-//       returnDocument: "before",
-//     });
-//     console.log(user);
-//     res.send("User updated successfully");
-//   } catch (err) {
-//     res.status(400).send("Error: " + err.message);
-//   }
-// });
-
-// update the user with emailId
-app.patch("/updateUser", async (req, res) => {
-  const userEmail = req.body.emailId;
+app.patch("/updateUser/:userId", async (req, res) => {
+  const userId = req.params?.userId;
   const data = req.body;
   try {
-    const user = await User.findOneAndUpdate({ emailId: userEmail }, data, {
+    const UPDATES_ALLOWED_FIELDS = [
+      "firstName",
+      "lastName",
+      "password",
+      "age",
+      "gender",
+      "about",
+      "photoUrl",
+      "skills",
+    ];
+    const isUpdatesAllowed = Object.keys(data).every((k) =>
+      UPDATES_ALLOWED_FIELDS.includes(k)
+    );
+    if (!isUpdatesAllowed) {
+      throw new Error("Update not allowed");
+    }
+    if (data?.skills.length > 10) {
+      throw new Error("Skills cannot be more than 10");
+    }
+    const user = await User.findByIdAndUpdate({ _id: userId }, data, {
       returnDocument: "before",
+      runValidators: true,
     });
     console.log(user);
     res.send("User updated successfully");
@@ -80,6 +85,22 @@ app.patch("/updateUser", async (req, res) => {
     res.status(400).send("Error: " + err.message);
   }
 });
+
+// update the user with emailId
+// app.patch("/updateUser", async (req, res) => {
+//   const userEmail = req.body.emailId;
+//   const data = req.body;
+//   try {
+//     const user = await User.findOneAndUpdate({ emailId: userEmail }, data, {
+//       returnDocument: "before",
+//       runValidators: true,
+//     });
+//     console.log(user);
+//     res.send("User updated successfully");
+//   } catch (err) {
+//     res.status(400).send("Error: " + err.message);
+//   }
+// });
 
 connectDB()
   .then(() => {
