@@ -1,6 +1,6 @@
 const validator = require("validator");
 
-const validateSignupData = async (req) => {
+const validateSignupData =  (req) => {
   const { firstName, lastName, emailId, password } = req.body;
   if (!firstName || !lastName) {
     throw new Error("Please enter your name");
@@ -15,4 +15,22 @@ const validateSignupData = async (req) => {
   }
 };
 
-module.exports = { validateSignupData };
+const validateEditProfileData = (req) => {
+  const allowedEditFields = [
+    "firstName",
+    "lastName",
+    "age",
+    "gender",
+    "about",
+    "photoUrl",
+    "skills",
+  ];
+
+  const isEditAllowed = Object.keys(req.body).every((k) =>
+    allowedEditFields.includes(k)
+  );
+
+  return isEditAllowed;
+};
+
+module.exports = { validateSignupData, validateEditProfileData };
