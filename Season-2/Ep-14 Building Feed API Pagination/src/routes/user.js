@@ -1,8 +1,11 @@
 const express = require("express");
 const { userAuth } = require("../middlewares/auth");
 const { ConnectionRequestModel } = require("../models/connectionRequest");
+const { User } = require("../models/user");
 
 const userRouter = express.Router();
+
+const USER_SAFE_DATA = "firstName lastName age gender about skills photoUrl";
 
 // Get all the pending connection requests for loggedIn user
 userRouter.get("/user/requests/received", userAuth, async (req, res) => {
@@ -46,7 +49,8 @@ userRouter.get("/user/connections", userAuth, async (req, res) => {
       );
 
     const data = connectionRequests.map((row) => {
-      if (row.fromUserId._id.toString() === loggedInUser._id.toString()) {  // Id's are from mongoose....so for comparing we are converting it to string
+      if (row.fromUserId._id.toString() === loggedInUser._id.toString()) {
+        // Id's are from mongoose....so for comparing we are converting it to string
         return row.toUserId;
       }
       return row.fromUserId;
@@ -55,6 +59,34 @@ userRouter.get("/user/connections", userAuth, async (req, res) => {
     res.json({
       data,
     });
+  } catch (err) {
+    res.status(400).send("Error: " + err.message);
+  }
+});
+
+userRouter.get("/user/feed", userAuth, async (req, res) => {
+  try {
+    const loggedInUser = req.user;
+
+    // finding all the connectionRequests that the loggedInUser sent and received
+    const connectionRequests = await ConnectionRequestModel.find({
+      $or: [{ fromUserId: loggedInUser._id }, { toUserId: loggedInUser._id }],
+    }).select("fromUserId toUserId");
+
+    const hideUsersFromFeed = new Set();
+    connectionRequests.forEach((req) => {
+      hideUsersFromFeed.add(req.fromUserId.toString());
+      hideUsersFromFeed.add(req.toUserId.toString());
+    });
+
+    const users = await User.find({
+      $and: [
+        { _id: { $nin: Array.from(hideUsersFromFeed) } },
+        { _id: { $ne: loggedInUser._id } },
+      ],
+    }).select(USER_SAFE_DATA);
+
+    res.json({ data: users });
   } catch (err) {
     res.status(400).send("Error: " + err.message);
   }
