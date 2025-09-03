@@ -1,0 +1,2 @@
+- logic for "/user/feed" API
+- explore $nin, $ne and other query operators

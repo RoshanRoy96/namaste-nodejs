@@ -64,9 +64,14 @@ userRouter.get("/user/connections", userAuth, async (req, res) => {
   }
 });
 
-userRouter.get("/user/feed", userAuth, async (req, res) => {
+userRouter.get("/feed", userAuth, async (req, res) => {
   try {
     const loggedInUser = req.user;
+
+    const page = parseInt(req.query.page) || 1;
+    let limit = parseInt(req.query.limit) || 10;
+    limit = limit > 50? 50 : limit;   // if a user set limit 1000 or 100000 it make take more time for DB to fetch data...that's why we are setting limit to 50
+    const skip = (page - 1) * limit;
 
     // finding all the connectionRequests that the loggedInUser sent and received
     const connectionRequests = await ConnectionRequestModel.find({
@@ -84,7 +89,10 @@ userRouter.get("/user/feed", userAuth, async (req, res) => {
         { _id: { $nin: Array.from(hideUsersFromFeed) } },
         { _id: { $ne: loggedInUser._id } },
       ],
-    }).select(USER_SAFE_DATA);
+    })
+      .select(USER_SAFE_DATA)
+      .skip(skip)
+      .limit(limit);
 
     res.json({ data: users });
   } catch (err) {
